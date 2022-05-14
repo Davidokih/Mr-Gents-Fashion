@@ -10,11 +10,11 @@ app.use(cors())
 app.use(express.json())
 app.use('', express.static('./uploads'))
 
-app.use("/api", require("./router/router"))
-app.use("/api", require("./otherFileControl/signUp"))
+app.use("/", require("./router/router"))
+app.use("/", require("./otherFileControl/signUp"))
 
-app.use("/api", require('./controller/uploadController'))
-app.use("/api", require('./controller/commentController'))
+app.use("/", require('./controller/uploadController'))
+app.use("/", require('./controller/commentController'))
 
 app.listen(port, () => {
     console.log(`Listening to port ${port}`)
