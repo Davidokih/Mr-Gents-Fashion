@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 require('dotenv').config();
-const url = process.env.ATLAS_KEY;
+const url = "mongodb+srv://Davidokih:dav517id@cluster0.1nweu.mongodb.net/mrGentApi?retryWrites=true&w=majority";
 
 mongoose.connect(url).then(() => {
     console.log('connected to database');
