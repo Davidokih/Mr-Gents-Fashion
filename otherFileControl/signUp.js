@@ -41,15 +41,13 @@ router.post("/registerAdmin", upload, async (req, res) => {
     try {
         const { email, password, userName, admin, adminPass } = req.body;
 
-        const salt = await bcrypt.genSalt(10);
-        const hashed = await bcrypt.hash(password, salt);
+        // const salt = await bcrypt.genSalt(10)
+        const hashed = await bcrypt.hash(password, 10);
 
         const image = await cloudinary.uploader.upload(req.file.path);
 
         const tokenValue = await crypto.randomBytes(20).toString('hex');
         const token = await jwt.sign({ tokenValue }, process.env.SECRETE, { expiresIn: "20m" });
-
-        // const token = await 
 
         const createUser = await userModel.create({
             email,
