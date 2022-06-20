@@ -11,10 +11,10 @@ const uploadSchema = new Schema({
     category: {
         type: String
     },
-    image: {
+    avatar: {
         type: String
     },
-    imageID: {
+    avatarID: {
         type: String
     },
     Date: {

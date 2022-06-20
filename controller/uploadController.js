@@ -3,11 +3,11 @@ const router = express.Router();
 const uploadModel = require('../model/uploadModel');
 const userModel = require('../model/userModel');
 const cloudinary = require("../utils/cloudinary");
-const { image } = require('../multer');
+const { image, upload } = require('../multer');
 const verify = require('../utils/verification');
 const mongoose = require('mongoose');
 
-router.post("/:id/upload", image, async (req, res) => {
+router.post("/:id/upload", upload, async (req, res) => {
     try {
         const getUser = await userModel.findById(req.params.id);
         const myImage = await cloudinary.uploader.upload(req.file.path);
@@ -15,8 +15,10 @@ router.post("/:id/upload", image, async (req, res) => {
             title: req.body.title,
             description: req.body.description,
             category: req.body.category,
-            image: myImage.secure_url,
-            imageID: myImage.public_id
+            avatar: myImage.secure_url,
+            avatarID: myImage.public_id
+            // image: myImage.secure_url,
+            // imageID: myImage.public_id
         });
 
         imageUpload.user = getUser;
@@ -64,7 +66,7 @@ router.get("/getAll/:imageid", async (req, res) => {
         });
     }
 });
-router.patch("/getAll/:imageid", verify, image, async (req, res) => {
+router.patch("/getAll/:imageid", verify, upload, async (req, res) => {
     try {
         if (req.user.admin === true) {
             const check = await uploadModel.findById(req.params.imageid);
@@ -75,8 +77,8 @@ router.patch("/getAll/:imageid", verify, image, async (req, res) => {
                 const result = await uploadModel.findByIdAndUpdate(req.params.imageid, {
                     title,
                     description,
-                    image: myImage.secure_url,
-                    imageID: myImage.public_id
+                    avatar: myImage.secure_url,
+                    avatarID: myImage.public_id
                 }, { new: true });
                 res.status(200).json({
                     status: "Success",
