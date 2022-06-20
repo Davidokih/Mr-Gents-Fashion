@@ -47,7 +47,7 @@ router.post("/registerAdmin", upload, async (req, res) => {
         const image = await cloudinary.uploader.upload(req.file.path);
 
         const tokenValue = await crypto.randomBytes(20).toString('hex');
-        const token = await jwt.sign({ tokenValue }, process.env.SECRETE, { expiresIn: "20m" });
+        const token = await jwt.sign({ tokenValue }, "myVerRRYBigSceret", { expiresIn: "20m" });
 
         const createUser = await userModel.create({
             email,
