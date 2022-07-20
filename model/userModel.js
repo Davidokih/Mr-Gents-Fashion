@@ -1,24 +1,14 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema
-
-const userSchema = new Schema({
-    userName: {
+const userModel = mongoose.Schema({
+    name: {
         type: String
     },
-    email: {
-        type: String
-    },
-    password: {
-        type: String
-    },
-    avatar: {
-        type: String
-    },
-    avatarID: {
-        type: String
-    }
-})
 
-module.exports = mongoose.model("users", userSchema)
+    like: [ {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "likes"
+    } ]
+});
 
+module.exports = mongoose.model("users", userModel);
